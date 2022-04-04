@@ -3,7 +3,7 @@
 NOMBRE=""
 
 yey() {
-    toilet --gay --font mono9 "$1"
+    toilet --gay --font smmono9 "$1"
 }
 
 greeting() {
@@ -14,7 +14,7 @@ greeting() {
 
     clear
     yey "Mucho gusto $nombre!"
-    yey "Mi nombre es Gadevoir"
+    yey "Yo soy Gadevoir"
     echo
     echo "Elije que tipo de mates quieres hacer"
 }
@@ -35,9 +35,6 @@ select-operacion() {
         ;;
     m | M)
         multiplicacion
-        ;;
-    *)
-        echo "$msg"
         ;;
     esac
 }
