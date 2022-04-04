@@ -2,6 +2,10 @@
 
 NOMBRE=""
 
+yey() {
+    toilet --gay --font mono9 "$1"
+}
+
 greeting() {
     clear
     echo "Hola! Escribe tu nombre"
@@ -9,17 +13,15 @@ greeting() {
     NOMBRE=$nombre
 
     clear
-    echo "Mucho gusto $nombre! Mi nombre es Gadevoir"
+    yey "Mucho gusto $nombre!"
+    yey "Mi nombre es Gadevoir"
     echo
     echo "Elije que tipo de mates quieres hacer"
-    echo "Escribe S para sumar"
-    echo "Escribe R para restar"
-    echo "Escribe M para multiplicar"
-    echo "Escribe D para dividir"
 }
 
 select-operacion() {
-    read -r -p "Escribe operación (S, R, M, D): " operacion
+    local msg="Escribe <S> para suma, <R> para resta, <M> para multiplicación o <D> para división"
+    read -r -p "$msg: " operacion
 
     case "${operacion}" in
     s | S)
@@ -35,7 +37,7 @@ select-operacion() {
         multiplicacion
         ;;
     *)
-        echo "Escribe S para suma, R para resta, M para multiplicación o D para división"
+        echo "$msg"
         ;;
     esac
 }
@@ -47,12 +49,16 @@ rand() {
 }
 
 success() {
-    echo "Muy bien $NOMBRE !!"
+    echo
+    yey "Muy bien echo $NOMBRE !!"
+    echo
 }
 
 error() {
-    echo "OHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH! No"
+    echo
+    yey "Oh No!"
     echo "El resultado era $1"
+    echo
 }
 
 suma() {
@@ -65,7 +71,7 @@ suma() {
 
 resta() {
     a=$(rand 100 1000)
-    b=$(rand 0 100)
+    b=$(rand 0 a)
     r=$((a - b))
     read -rp "Cuánto es $a - $b = " ans
     [ $r == "$ans" ] && success || error $r
@@ -95,6 +101,6 @@ echo
 while :; do
     select-operacion
     echo
-    read -rp "Presiona cualquier tecla para continuar"
+    read -rp "Presiona la tecla <enter> para continuar"
     clear
 done
