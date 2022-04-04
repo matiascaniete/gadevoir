@@ -71,7 +71,7 @@ resta() {
     [ $r == "$ans" ] && success || error $r
 }
 
-multipicacion() {
+multiplicacion() {
     a=$(rand 0 11)
     b=$(rand 0 11)
     r=$((a * b))
