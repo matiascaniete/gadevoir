@@ -3,7 +3,7 @@
 NOMBRE=""
 
 yey() {
-    toilet --gay --font smmono9 "$1"
+    figlet "$1" | lolcat -a -d 1
 }
 
 greeting() {
