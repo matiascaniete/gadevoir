@@ -7,16 +7,15 @@ yey() {
 }
 
 greeting() {
-    clear
     echo "Hola! Escribe tu nombre"
     read -rp "Nombre: " nombre
     NOMBRE=$nombre
 
-    clear
     yey "Mucho gusto $nombre!"
     yey "Yo soy Gadevoir"
     echo
-    echo "Elije que tipo de mates quieres hacer"
+    echo "Elije que mates quieres hacer."
+    echo
 }
 
 select-operacion() {
@@ -92,12 +91,18 @@ division() {
     [ $r == "$ans1" ] && [ $s == "$ans2" ] && success || error "$r (con resto $s)"
 }
 
-greeting
-echo
-
-while :; do
-    select-operacion
-    echo
-    read -rp "Presiona la tecla <enter> para continuar"
+gadevoir() {
     clear
-done
+    greeting
+    
+
+    while :; do
+        select-operacion
+        echo
+        read -rp "Presiona la tecla <enter> para continuar o <Q> para salir: " r
+        [[ "$r" == "q" ]] && break
+        clear
+    done
+}
+
+gadevoir
