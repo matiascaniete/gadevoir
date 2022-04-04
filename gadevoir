@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+NOMBRE=""
+
+greeting() {
+    clear
+    echo "Hola! Escribe tu nombre"
+    read -rp "Nombre: " nombre
+    NOMBRE=$nombre
+
+    clear
+    echo "Mucho gusto $nombre! Mi nombre es Gadevoir"
+    echo
+    echo "Elije que tipo de mates quieres hacer"
+    echo "Escribe S para sumar"
+    echo "Escribe R para restar"
+    echo "Escribe M para multiplicar"
+    echo "Escribe D para dividir"
+}
+
+select-operacion() {
+    read -r -p "Escribe operación (S, R, M, D): " operacion
+
+    case "${operacion}" in
+    s | S)
+        suma
+        ;;
+    d | D)
+        division
+        ;;
+    r | R)
+        resta
+        ;;
+    m | M)
+        multiplicacion
+        ;;
+    *)
+        echo "Escribe S para suma, R para resta, M para multiplicación o D para división"
+        ;;
+    esac
+}
+
+rand() {
+    local min=$1
+    local max=$2
+    echo $((min + RANDOM % $((max - min))))
+}
+
+success() {
+    echo "Muy bien $NOMBRE !!"
+}
+
+error() {
+    echo "OHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH! No"
+    echo "El resultado era $1"
+}
+
+suma() {
+    a=$(rand 0 1000)
+    b=$(rand 0 1000)
+    r=$((a + b))
+    read -rp "Cuánto es $a + $b = " ans
+    [ $r == "$ans" ] && success || error $r
+}
+
+resta() {
+    a=$(rand 100 1000)
+    b=$(rand 0 100)
+    r=$((a - b))
+    read -rp "Cuánto es $a - $b = " ans
+    [ $r == "$ans" ] && success || error $r
+}
+
+multipicacion() {
+    a=$(rand 0 11)
+    b=$(rand 0 11)
+    r=$((a * b))
+    read -rp "Cuánto es $a x $b = " ans
+    [ $r == "$ans" ] && success || error $r
+}
+
+division() {
+    a=$(rand 10 1000)
+    b=$(rand 1 10)
+    r=$((a / b))
+    s=$((a % b))
+    read -rp "Cuánto es $a / $b = " ans1
+    read -rp "Y el resto? " ans2
+    [ $r == "$ans1" ] && [ $s == "$ans2" ] && success || error "$r (con resto $s)"
+}
+
+greeting
+echo
+
+while :; do
+    select-operacion
+    echo
+    read -rp "Presiona cualquier tecla para continuar"
+    clear
+done
